@@ -1,0 +1,99 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package cl.ucn.disc.pa.repasoPrueba2Pasada as repasoPrueba2Pasada{
+
+package dominio{
+
+class Pentagono{
+-apotema: int
++Pentagono(arista:int,apotema:int)
+}
+
+abstract Poligono{
+#arista: int
++Poligono(arista:int)
+}
+
+class Triangulo{
+-altura: int
++Triangulo(arista:int,altura:int)
+}
+
+class Cuadrado{
++Cuadrado(arista:int)
+}
+
+
+class ContenedorFiguras{
+-figuras: Figura[]
+-cantidadMaxima: int
+-cantidadActual: int
++ContenedorFiguras(cantidadMaxima: int)
++getCantidadActual(): int
++agregar(nueva: Figura):void
++obtener(posicion: int):Figura
+}
+
+interface Figura{
++calcularPerimetro():double
++calcularArea():double
+}
+
+class Circulo{
+-radio:int
++Circulo(radio: int)
+}
+
+
+}
+
+package vista{
+
+class VistaConsola{
+-sistema:SistemaGeometria
++VistaConsola(sistema: SistemaGeometria)
++iniciar():void
+}
+
+}
+
+package servicios{
+
+
+interface SistemaGeometria{
++agregarFigura(tipoFigura: String, datos: int[]):String
++mostrarFiguras(): String
++mostrarPerimetroArea(): String
+}
+
+class SistemaGeometriaUCN{
+-contenedorFiguras: ContenedorFiguras
++SistemaGeometriaUCN()
+}
+
+}
+
+
+package utilidades{
+
+class ValidadorEntrada{
++{static} lecturaEnteros(frase:String):int
+}
+
+}
+
+}
+
+VistaConsola "1" *-- "1" SistemaGeometria: utiliza
+VistaConsola "1" ..> "1" ValidadorEntrada
+SistemaGeometriaUCN ..|> SistemaGeometria
+SistemaGeometriaUCN "1" *-- "1" ContenedorFiguras: utiliza
+ContenedorFiguras "1" o-- Figura
+Circulo ..|> Figura
+Poligono ..|> Figura
+Triangulo ..|> Poligono
+Cuadrado ..|> Poligono
+Pentagono ..|> Poligono
+
+@enduml
