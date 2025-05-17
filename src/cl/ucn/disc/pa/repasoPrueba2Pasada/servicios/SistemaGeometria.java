@@ -1,6 +1,6 @@
 package cl.ucn.disc.pa.repasoPrueba2Pasada.servicios;
 
-public interface SistemaGeometria {
+public interface SistemaGeometria  {
 
      String agregarFigura(String tipoFigura, int[] datos);
      String mostrarFigura();
